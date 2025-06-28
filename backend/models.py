@@ -9,9 +9,9 @@ class Usuario(Base):
     id = db.Column(db.Integer, primary_key=True)
     usuario = db.Column(db.String(250), nullable=False)
     contrasena = db.Column(db.String(250), nullable=False)
+    rol = db.Column(db.String(50), nullable=False, default='Lector') #Lector, Administrador, SuperRoot
     capturas = db.relationship('Captura', foreign_keys='Captura.usuario_id', backref='usuario', lazy=True)
     capturas_eliminadas = db.relationship('Captura', foreign_keys='Captura.eliminado_por', backref='eliminador', lazy=True)
-    es_super_usuario = db.Column(db.Boolean, default=False, nullable=False)
 
 class DirectorioInterno(Base):
     __tablename__ = 'directorio_interno'

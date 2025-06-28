@@ -3,6 +3,7 @@ APScheduler
 asttokens
 attrs
 backcall
+bcrypt
 beautifulsoup4
 bleach
 blinker
@@ -27,6 +28,7 @@ Flask-SQLAlchemy
 greenlet
 idna
 ipython
+ipython_pygments_lexers
 itsdangerous
 jedi
 Jinja2
@@ -65,6 +67,7 @@ pyzmq
 referencing
 requests
 rpds-py
+setuptools
 six
 soupsieve
 SQLAlchemy
@@ -79,4 +82,5 @@ urllib3
 wcwidth
 webencodings
 Werkzeug
+wheel
 yarg

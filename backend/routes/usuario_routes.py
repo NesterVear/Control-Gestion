@@ -24,14 +24,14 @@ def crear_usuario():
     data = request.get_json()
     usuario = data.get('usuario')
     contrasena = data.get('contrasena')
-    rol = data get ('rol', 'Lector') #por defecto lector
+    rol = data.get('rol', 'Lector')  # Por defecto Lector
     if not usuario or not contrasena or rol not in ['Administrador', 'Lector', 'SuperRoot']:
-        return jsonify({'error': 'Datos invalidos zoquete'}), 400
+        return jsonify({'error': 'Datos inválidos'}), 400
     hashed = bcrypt.hashpw(contrasena.encode('utf-8'), bcrypt.gensalt())
     nuevo_usuario = Usuario(usuario=usuario, contrasena=ha.decode('utf-8'), rol=rol)
     db.session.add(nuevo_usuario)
     db.session.commit()
-    return jsonify({'mensaje': 'Usuario creado', 'id': nuevo_usuario.id}), 201
+    return jsonify({'mensaje': 'Usuario creado correctamente', 'id': nuevo_usuario.id}), 201
 
 @usuario_bp.route('/login', methods=['POST'])
 def login():
@@ -40,7 +40,7 @@ def login():
     contrasena = data.get('contrasena')
     user = Usuario.query.filter_by(usuario=usuario).first()
     if user and bcrypt.checkpw(contrasena.encode('utf-8'), user.contrasena.encode('utf-8')): 
-        return jsonify({'mensaje': Login Exitoso Cachirula te ama, 'id': user.id, 'rol': user.rol}), 200 
+        return jsonify({'mensaje': 'Login Exitoso, Cachirula te ama', 'id': user.id, 'rol': user.rol}), 200 
     return jsonify({'error': 'Crendenciales Invalidas, Ulises te besara en la noche'}), 401
 
 

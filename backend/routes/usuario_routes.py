@@ -5,7 +5,21 @@ import bcrypt
 
 usuario_bp = Blueprint('usuario', __name__)
 
-@usuario_bp.route('/usuarios', methods=['POST'], endopoint='crear_usuario')
+def require_role(role):
+    def decorator(f):
+        def wrapped_function(*args, **kwrags):
+            user_id = request.headers.get('User-ID')
+            if not user_id:
+                return jsonify({'error': 'No, no entraste...'}), 401
+            usuario = Usuario.query.get(user_id)
+            if not usuario or usuario.rol not in role:
+                return jsonify({'error': 'Intentalo otra vez, migajero'}), 403
+            return f(*args, **kwrags)
+        return wrapped_function
+    return decorator
+
+@usuario_bp.route('/usuario', methods=['POST'])
+@require_role(['SuperRoot'])
 def crear_usuario():
     data = request.get_json()
     usuario = data.get('usuario')

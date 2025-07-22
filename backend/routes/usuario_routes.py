@@ -10,16 +10,16 @@ def require_role(role):
         def wrapped_function(*args, **kwargs):
             user_id = request.headers.get('User-ID')
             if not user_id:
-                return jsonify({'error': 'No, no entraste...'}), 401
+                return jsonify({'error': 'No, no entraste... Migajero'}), 401
             usuario = Usuario.query.get(user_id)
             if not usuario or usuario.rol not in role:
-                return jsonify({'error': 'Intentalo otra vez, migajero'}), 403
+                return jsonify({'error': 'Intentalo otra vez, asi como con tu ex, Migajero'}), 403
             return f(*args, **kwargs)
         wrapped_function.__name__ = f.__name__
         return wrapped_function 
     return decorator
 
-@usuario_bp.route('/usuario', methods=['POST'], endpoint='crear_usuario')
+@usuario_bp.route('/usuarios', methods=['POST'], endpoint='crear_usuario')
 @require_role(['SuperRoot'])
 def crear_usuario():
     data = request.get_json()
